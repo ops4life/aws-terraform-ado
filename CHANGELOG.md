@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.4.0](https://github.com/ops4life/aws-terraform-ado/compare/v1.3.0...v1.4.0) (2026-01-17)
+
+
+### Features
+
+* Change license update to use repo owner name ([93acecd](https://github.com/ops4life/aws-terraform-ado/commit/93acecdf0f36af975595bd94c8535149d7547216))
+
 # [1.3.0](https://github.com/duyluann/aws-terraform-ado/compare/v1.2.0...v1.3.0) (2025-11-25)
 
 
