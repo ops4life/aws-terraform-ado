@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.5.0](https://github.com/ops4life/aws-terraform-ado/compare/v1.4.0...v1.5.0) (2026-02-14)
+
+
+### Features
+
+* Add GitHub Actions workflows for documentation deployment and validation ([473fd79](https://github.com/ops4life/aws-terraform-ado/commit/473fd7923693372f84e9d36faa4e9e976c2fa95d))
+
 # [1.4.0](https://github.com/ops4life/aws-terraform-ado/compare/v1.3.0...v1.4.0) (2026-01-17)
 
 
