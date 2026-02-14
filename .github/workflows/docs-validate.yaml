@@ -1,0 +1,37 @@
+name: Validate Documentation
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "requirements.txt"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Configure repository URLs
+        run: |
+          REPO_URL="https://github.com/${{ github.repository }}"
+          SITE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          REPO_NAME="${{ github.repository }}"
+          sed -i "s|https://github.com/username/github-repo-template|${REPO_URL}|g" mkdocs.yml
+          sed -i "s|https://username.github.io/github-repo-template|${SITE_URL}|g" mkdocs.yml
+          sed -i "s|username/github-repo-template|${REPO_NAME}|g" mkdocs.yml
+
+      - name: Validate MkDocs build
+        run: mkdocs build --strict

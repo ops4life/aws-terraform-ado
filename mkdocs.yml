@@ -1,0 +1,88 @@
+site_name: AWS Terraform Template
+site_description: A structured Terraform project template for AWS infrastructure deployments with CI/CD integration, security scanning, and best practices enforcement.
+site_url: https://username.github.io/github-repo-template
+repo_url: https://github.com/username/github-repo-template
+repo_name: username/github-repo-template
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+  - git-revision-date-localized:
+      enable_creation_date: true
+      fallback_to_build_date: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quick Start: getting-started/quick-start.md
+      - Template Usage: getting-started/usage.md
+  - Guides:
+      - CI/CD Workflows: guides/workflows.md
+      - Commit Conventions: guides/commit-conventions.md
+      - Security Practices: guides/security.md
+      - Contributing: guides/contributing.md
+  - Reference:
+      - Repository Structure: reference/repository-structure.md
+      - Configuration: reference/configuration.md
+      - Changelog: reference/changelog.md
+  - About: about.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/username/github-repo-template
+
+extra_css:
+  - stylesheets/extra.css
