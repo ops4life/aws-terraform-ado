@@ -9,8 +9,9 @@ This guide explains how to customize the template for your specific AWS infrastr
 After creating your repository from the template:
 
 1. Update `CODEOWNERS` with your team members
-2. Configure GitHub repository settings (branch protection, environments)
-3. Set up required secrets for CI/CD
+2. Configure GitHub repository settings (branch protection rules)
+3. Set up Azure DevOps pipeline pointing to `.azure-pipelines/azure-pipelines.yaml`
+4. Create an AWS service connection in Azure DevOps
 
 ### 2. Backend Configuration
 

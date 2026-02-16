@@ -1,8 +1,72 @@
 # CI/CD Workflows
 
-This project uses GitHub Actions for continuous integration and deployment. All workflows are defined in `.github/workflows/`.
+This project uses **Azure Pipelines** for Terraform deployment and **GitHub Actions** for pull request validation and release management.
 
-## Pull Request Checks
+## Terraform Deployment (Azure Pipelines)
+
+**File:** `.azure-pipelines/azure-pipelines.yaml`
+
+The main deployment pipeline runs on Azure DevOps and handles Terraform operations against AWS.
+
+### Triggers
+
+- **Branch trigger**: Runs on pushes to `main` when Terraform files (`*.tf`, `*.tfvars`, `.terraform.lock.hcl`) or pipeline files change
+- **PR trigger**: Runs on pull requests targeting any branch
+
+### Pipeline Steps
+
+1. **Install Terraform** - Installs the latest Terraform version via `TerraformInstaller@0`
+2. **Init** - Initializes Terraform with the AWS service connection
+3. **Validate** - Runs `terraform validate` to check configuration syntax
+4. **Plan** - Generates an execution plan (`-out=tfplan`) and publishes the plan results
+
+### Azure DevOps Configuration
+
+#### Service Connection
+
+The pipeline requires an AWS service connection named `AWSServiceConnection` configured in Azure DevOps:
+
+1. Go to **Project Settings > Service connections**
+2. Create a new **AWS** service connection
+3. Name it `AWSServiceConnection`
+4. Provide your AWS access key and secret key
+
+#### Pipeline Variables
+
+| Setting | Value | Description |
+|---------|-------|-------------|
+| VM Image | `ubuntu-latest` | Agent pool image |
+| AWS Region | `ap-southeast-1` | Target AWS region |
+| Service Connection | `AWSServiceConnection` | AWS credentials |
+
+#### Required Extensions
+
+Install the following extensions from the Azure DevOps Marketplace:
+
+| Extension | Purpose |
+|-----------|---------|
+| [Terraform](https://marketplace.visualstudio.com/items?itemName=ms-devlabs.custom-terraform-tasks) | `TerraformInstaller@0` and `TerraformCLI@0` tasks |
+
+### Environment-Specific Deployments
+
+To deploy to specific environments, modify the plan step to include the appropriate tfvars file:
+
+```yaml
+- task: TerraformCLI@0
+  displayName: 'terraform plan - dev'
+  inputs:
+    providerServiceAws: 'AWSServiceConnection'
+    providerAwsRegion: 'ap-southeast-1'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    command: 'plan'
+    commandOptions: '-var-file=environments/dev/dev.tfvars -out=tfplan -input=false'
+    publishPlanResults: 'tfplan'
+```
+
+!!! tip "Environment Approvals"
+    Configure [approval gates](https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals) in Azure DevOps Environments for production deployments.
+
+## Pull Request Checks (GitHub Actions)
 
 The following checks run automatically on every pull request:
 
@@ -52,43 +116,7 @@ Scans for secrets and sensitive data in the codebase.
 
 Validates that PR titles follow the conventional commit format.
 
-## Deployment Workflow
-
-**File:** `.github/workflows/terraform-aws.yml`
-
-The main deployment workflow supports manual triggering with environment and action selection.
-
-### Inputs
-
-| Input | Options | Description |
-|-------|---------|-------------|
-| Environment | `dev`, `qa`, `prod` | Target deployment environment |
-| Action | `plan`, `apply`, `destroy` | Terraform action to perform |
-
-### Workflow Steps
-
-1. **Checkout** - Clone the repository
-2. **Setup Terraform** - Install the specified Terraform version
-3. **Format Check** - Verify `terraform fmt` compliance
-4. **Init** - Initialize Terraform with backend configuration
-5. **Validate** - Run `terraform validate`
-6. **Plan** - Generate and upload the execution plan
-7. **Apply/Destroy** - Execute the selected action (if not `plan`)
-
-### Environment Protection
-
-!!! tip "Production Safety"
-    Configure approval requirements for the `prod` environment in **Settings > Environments** to require manual approval before production deployments.
-
-### Required Secrets
-
-| Secret | Description |
-|--------|-------------|
-| `AWS_ACCESS_KEY_ID` | AWS access key |
-| `AWS_SECRET_ACCESS_KEY` | AWS secret key |
-| `AWS_REGION` | Target AWS region |
-
-## Release Workflow
+## Release Workflow (GitHub Actions)
 
 **File:** `.github/workflows/release.yaml`
 
@@ -108,7 +136,7 @@ Automated release management using Semantic Release:
 | `feat:` | Minor (1.x.0) | New features |
 | `BREAKING CHANGE:` | Major (x.0.0) | Breaking changes |
 
-## Other Workflows
+## Other Workflows (GitHub Actions)
 
 | Workflow | File | Purpose |
 |----------|------|---------|

@@ -6,6 +6,8 @@ This page documents the complete file and directory layout of the repository.
 
 ```text
 .
+├── .azure-pipelines/
+│   └── azure-pipelines.yaml          # Azure Pipelines for Terraform deployment
 ├── .devcontainer/
 │   ├── Dockerfile                    # Development environment definition
 │   └── devcontainer.json             # VSCode Dev Container configuration
@@ -26,7 +28,6 @@ This page documents the complete file and directory layout of the repository.
 │   │   ├── release.yaml              # Semantic release
 │   │   ├── stale.yaml                # Stale issue management
 │   │   ├── template-repo-sync.yaml   # Template synchronization
-│   │   ├── terraform-aws.yml         # Terraform deployment
 │   │   ├── tf-docs.yaml              # Terraform docs generation
 │   │   └── update-license.yml        # License year update
 │   ├── dependabot.yml                # Dependabot configuration
