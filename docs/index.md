@@ -9,7 +9,7 @@ A structured Terraform project template for AWS infrastructure deployments with 
 - **Production-Ready Structure** - Organized file layout following Terraform best practices
 - **Multi-Environment Support** - Pre-configured dev, qa, and prod environments
 - **Security Scanning** - Multi-layer scanning with Checkov, TFLint, and Gitleaks
-- **CI/CD Pipelines** - GitHub Actions workflows for validation, deployment, and release management
+- **CI/CD Pipelines** - Azure Pipelines for Terraform deployment with GitHub Actions for validation and release management
 - **Auto-Documentation** - Automated Terraform docs generation with terraform-docs
 - **Semantic Releases** - Automated versioning and changelog generation
 - **Reusable Modules** - Example S3 bucket module with security best practices
@@ -36,7 +36,8 @@ A structured Terraform project template for AWS infrastructure deployments with 
 │   └── prod/             # Production settings
 ├── modules/              # Reusable Terraform modules
 ├── examples/             # Usage examples and patterns
-├── .github/workflows/    # CI/CD pipeline definitions
+├── .azure-pipelines/     # Azure Pipelines for Terraform deployment
+├── .github/workflows/    # GitHub Actions for validation and release
 └── docs/                 # Documentation source files
 ```
 

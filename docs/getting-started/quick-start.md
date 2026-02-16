@@ -69,17 +69,24 @@ terraform apply -var-file=environments/dev/dev.tfvars
 
 ## Step 6: Set Up CI/CD
 
-Configure the following GitHub secrets for automated deployments:
+### Azure Pipelines (Terraform Deployment)
+
+Configure the Azure DevOps pipeline for Terraform operations:
+
+1. Install the [Terraform extension](https://marketplace.visualstudio.com/items?itemName=ms-devlabs.custom-terraform-tasks) from the Azure DevOps Marketplace
+2. Create an AWS service connection named `AWSServiceConnection` in **Project Settings > Service connections**
+3. Create a new pipeline pointing to `.azure-pipelines/azure-pipelines.yaml`
+
+### GitHub Actions (Validation & Release)
+
+Configure the following GitHub secrets for PR checks and releases:
 
 | Secret | Description |
 |--------|-------------|
-| `AWS_ACCESS_KEY_ID` | AWS access key for deployments |
-| `AWS_SECRET_ACCESS_KEY` | AWS secret key for deployments |
-| `AWS_REGION` | Target AWS region |
-| `INFRACOST_API_KEY` | (Optional) For cost estimation |
+| `INFRACOST_API_KEY` | (Optional) For cost estimation on PRs |
 
-!!! tip "GitHub Environments"
-    Configure environment protection rules in **Settings > Environments** for production approval workflows.
+!!! tip "Environment Approvals"
+    Configure [approval gates](https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals) in Azure DevOps Environments for production deployment safety.
 
 ## Next Steps
 

@@ -9,6 +9,8 @@ This repository provides a structured template for Terraform projects, enabling 
 ├── .devcontainer
 │   ├── Dockerfile                  # 🛠️ Defines the development environment for the project
 │   └── devcontainer.json           # 🖥️ Configuration for VSCode Dev Containers
+├── .azure-pipelines
+│   └── azure-pipelines.yaml        # 🚀 Azure Pipelines for Terraform deployment
 ├── .editorconfig                   # 📝 Editor configuration file to maintain consistent coding styles
 ├── .github
 │   ├── ISSUE_TEMPLATE
@@ -16,8 +18,7 @@ This repository provides a structured template for Terraform projects, enabling 
 │   ├── dependabot.yml              # 🤖 Configuration for Dependabot to manage dependencies
 │   ├── pull_request_template.md    # 📝 Template for pull requests
 │   └── workflows
-│       ├── stale.yaml              # 🕰️ Workflow to mark stale issues and PRs
-│       └── terraform-aws.yml       # 🚀 CI/CD pipeline for Terraform using GitHub Actions
+│       └── stale.yaml              # 🕰️ Workflow to mark stale issues and PRs
 ├── .gitignore                      # 🚫 Specifies files to be ignored by Git
 ├── .pre-commit-config.yaml         # ✅ Configuration for pre-commit hooks to enforce code quality
 ├── .terraform.lock.hcl             # 🔒 Lock file to ensure consistent Terraform provider versions

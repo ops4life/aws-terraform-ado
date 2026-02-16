@@ -119,11 +119,12 @@ Every PR is scanned by:
 - GitLeaks (standalone workflow)
 - Pre-commit CI (includes all security hooks)
 
-### Deployment Security
+### Deployment Security (Azure Pipelines)
 
-- Environment protection rules for production
-- Manual approval requirements
-- Plan review before apply
+- Azure DevOps approval gates for production environments
+- Manual approval requirements via pipeline environments
+- Plan review before apply (plan results published in Azure DevOps)
+- AWS credentials managed via Azure DevOps service connections
 - Encrypted state storage (when using S3 backend)
 
 ## Recommendations
